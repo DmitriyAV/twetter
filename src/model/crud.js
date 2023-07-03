@@ -24,19 +24,25 @@ const crud = function () {
     let commentIdCounter = 6
 
     const addPost = (text) => {
-        postIdCounter++
-        const newPost = {
-            text: `${text}`,
-            id: `p${postIdCounter}`,
-            comments: []
+        if (text !== "") {
+            postIdCounter++
+            const newPost = {
+                text: `${text}`,
+                id: `p${postIdCounter}`,
+                comments: []
+            }
+            posts.push(newPost)
         }
-        posts.push(newPost)
+        else {
+            alert('Your post is empty!')
+        }
     }
 
     const getPosts = () => [...posts]
     const removePost = (id) => posts = posts.filter(post => post.id !== id)
 
     const addComment = (text, postId) => {
+        commentIdCounter++
         const newComments = {
             text: text,
             id: `c${commentIdCounter}`
@@ -47,7 +53,10 @@ const crud = function () {
 
     const removeComment = (postId, commentId) => {
        let targetPost = posts.find(post => post.id === postId)
-            targetPost.comments.filter(comment => comment.id !== commentId)
+        if (targetPost){
+           targetPost.comments = targetPost.comments.filter(comment => comment.id !== commentId)
+        }
+
 
     }
     return {
